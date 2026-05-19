@@ -1,29 +1,28 @@
-// App.tsx
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { supabase } from "./utils/supabase";
-import { Session } from "@supabase/supabase-js";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
+import { UserProvider, useUser } from "./src/context/UserContext";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const [session, setSession] = useState<Session | null>(null);
+function LoadingScreen() {
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#3498DB" />
+      <Text style={styles.loadingText}>Cargando perfil...</Text>
+    </View>
+  );
+}
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+function RootNavigator() {
+  const { session, loading } = useUser();
 
-    // 2. Escuchar cambios (cuando inicia sesión o cierra sesión)
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
+  if (loading) return <LoadingScreen />;
 
   return (
     <NavigationContainer>
@@ -40,3 +39,26 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default function App() {
+  return (
+    <UserProvider>
+      <RootNavigator />
+    </UserProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F8FAFC",
+  },
+  loadingText: {
+    color: "#2C3E50",
+    fontSize: 16,
+    fontWeight: "700",
+    marginTop: 12,
+  },
+});
