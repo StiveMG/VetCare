@@ -4,6 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import GestorCitasScreen from "./src/screens/citas/GestorCitasScreen";
+import GestorProductosScreen from "./src/screens/productos/GestorProductosScreen";
+import ProductosClienteScreen from "./src/screens/productos/ProductosClienteScreen";
+import GestorUsuariosScreen from "./src/screens/usuarios/GestorUsuariosScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -37,6 +40,9 @@ function RootNavigator() {
           <>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="GestorCitas" component={GestorCitasScreen} />
+            <Stack.Screen name="GestorProductos" component={GestorProductosScreen} />
+            <Stack.Screen name="ProductosCliente" component={ProductosClienteScreen} />
+            <Stack.Screen name="GestorUsuarios" component={GestorUsuariosScreen} />
           </>
         )}
       </Stack.Navigator>

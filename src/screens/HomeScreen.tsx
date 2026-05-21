@@ -9,6 +9,7 @@ const adminActions: DashboardAction[] = [
     icon: "account-supervisor-outline",
     color: "#3498DB",
     backgroundColor: "#E1F0FA",
+    route: "GestorUsuarios",
   },
   {
     title: "Citas medicas",
@@ -40,11 +41,12 @@ const adminActions: DashboardAction[] = [
     backgroundColor: "#F3F0FF",
   },
   {
-    title: "Compras",
-    description: "Revisar compras, productos, stock y facturacion.",
-    icon: "cart-outline",
+    title: "Productos",
+    description: "Gestionar inventario, precios y stock.",
+    icon: "package-variant-closed",
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
+    route: "GestorProductos",
   },
 ];
 
@@ -65,6 +67,14 @@ const clienteActions: DashboardAction[] = [
     backgroundColor: "#E1F0FA",
   },
   {
+    title: "Productos",
+    description: "Ver productos disponibles en la tienda.",
+    icon: "store-outline",
+    color: "#27AE60",
+    backgroundColor: "#E8F6EF",
+    route: "ProductosCliente",
+  },
+  {
     title: "Mi historial",
     description: "Consultar el historial medico de tus mascotas.",
     icon: "clipboard-text-outline",
@@ -77,6 +87,7 @@ const clienteActions: DashboardAction[] = [
     icon: "account-cog-outline",
     color: "#9B59B6",
     backgroundColor: "#F3F0FF",
+    route: "GestorUsuarios",
   },
 ];
 
@@ -102,6 +113,7 @@ const doctorActions: DashboardAction[] = [
     icon: "account-edit-outline",
     color: "#9B59B6",
     backgroundColor: "#F3F0FF",
+    route: "GestorUsuarios",
   },
 ];
 
