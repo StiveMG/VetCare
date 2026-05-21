@@ -40,11 +40,12 @@ const adminActions: DashboardAction[] = [
     backgroundColor: "#F3F0FF",
   },
   {
-    title: "Compras",
-    description: "Revisar compras, productos, stock y facturacion.",
-    icon: "cart-outline",
+    title: "Productos",
+    description: "Gestionar inventario, precios y stock.",
+    icon: "package-variant-closed",
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
+    route: "GestorProductos",
   },
 ];
 
@@ -63,6 +64,14 @@ const clienteActions: DashboardAction[] = [
     icon: "paw",
     color: "#3498DB",
     backgroundColor: "#E1F0FA",
+  },
+  {
+    title: "Productos",
+    description: "Ver productos disponibles en la tienda.",
+    icon: "store-outline",
+    color: "#27AE60",
+    backgroundColor: "#E8F6EF",
+    route: "ProductosCliente",
   },
   {
     title: "Mi historial",
