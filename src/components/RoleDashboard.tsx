@@ -11,6 +11,7 @@ import {
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useUser } from "../context/UserContext";
+import { useNavigation } from "@react-navigation/native";
 
 export type DashboardAction = {
   title: string;
@@ -19,6 +20,7 @@ export type DashboardAction = {
   color: string;
   backgroundColor: string;
   status?: string;
+  route?: string;
 };
 
 type RoleDashboardProps = {
@@ -31,12 +33,17 @@ export default function RoleDashboard({
   actions,
 }: RoleDashboardProps) {
   const { usuario, signOut } = useUser();
+  const navigation = useNavigation<any>();
 
   const handleAction = (action: DashboardAction) => {
-    Alert.alert(
-      action.title,
-      action.status ?? action.description ?? "Este modulo estara listo pronto.",
-    );
+    if (action.route) {
+      navigation.navigate(action.route); 
+    } else {
+      Alert.alert(
+        action.title,
+        action.status ?? action.description ?? "Este modulo estara listo pronto."
+      );
+    }
   };
 
   return (

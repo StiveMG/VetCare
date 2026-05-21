@@ -16,6 +16,7 @@ const adminActions: DashboardAction[] = [
     icon: "calendar-edit",
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
+    route: "GestorCitas",
   },
   {
     title: "Mascotas",
@@ -54,6 +55,7 @@ const clienteActions: DashboardAction[] = [
     icon: "calendar-heart",
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
+    route: "GestorCitas",
   },
   {
     title: "Mis mascotas",
@@ -85,6 +87,7 @@ const doctorActions: DashboardAction[] = [
     icon: "calendar-search",
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
+    route: "GestorCitas",
   },
   {
     title: "Historial medico",
@@ -92,13 +95,6 @@ const doctorActions: DashboardAction[] = [
     icon: "clipboard-pulse-outline",
     color: "#3498DB",
     backgroundColor: "#E1F0FA",
-  },
-  {
-    title: "Cancelar cita",
-    description: "Cancelar una cita asignada cuando sea necesario.",
-    icon: "calendar-remove",
-    color: "#E74C3C",
-    backgroundColor: "#FEF0F0",
   },
   {
     title: "Mi perfil",

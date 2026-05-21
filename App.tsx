@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import GestorCitasScreen from "./src/screens/citas/GestorCitasScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -33,7 +34,10 @@ function RootNavigator() {
             <Stack.Screen name="Register" component={RegisterScreen} />
           </>
         ) : (
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="GestorCitas" component={GestorCitasScreen} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
