@@ -12,39 +12,29 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { supabase } from "../../utils/supabase";
-import type { UserRole } from "../context/UserContext";
 
-const roleOptions: Array<{
-  value: UserRole;
-  label: string;
-  description: string;
-  icon: React.ComponentProps<typeof Ionicons>["name"];
-}> = [
-  {
-    value: "CLIENTE",
-    label: "Cliente",
-    description: "Mascotas, citas, perfil e historial propio.",
-    icon: "person-outline",
-  },
-  {
-    value: "DOCTOR",
-    label: "Doctor",
-    description: "Citas asignadas, cancelaciones, historial y perfil.",
-    icon: "medical-outline",
-  },
-  {
-    value: "ADMIN",
-    label: "Admin",
-    description: "Control completo de la clinica.",
-    icon: "shield-checkmark-outline",
-  },
-];
+/**
+ * RegisterScreen
+ * -------------------------------------------------------
+ *  ANTES: el usuario elegía su rol (CLIENTE, DOCTOR, ADMIN)
+ *         al registrarse. CUALQUIERA podía auto-asignarse ADMIN.
+ *
+ *  AHORA:  TODOS se registran como "CLIENTE" por defecto.
+ *          Solo un ADMIN puede cambiar roles después, desde
+ *          la pantalla "GestorUsuarios".
+ *
+ *  ¿Por qué?
+ *    - Seguridad: evita que un usuario malicioso se registre
+ *      como ADMIN y tenga control total.
+ *    - Control: el administrador decide quién es CLIENTE,
+ *      DOCTOR o ADMIN después de revisar cada caso.
+ * -------------------------------------------------------
+ */
 
 export default function RegisterScreen({ navigation }: any) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rol, setRol] = useState<UserRole>("CLIENTE");
   const [loading, setLoading] = useState(false);
   const [mostrarPassword, setMostrarPassword] = useState(false);
 
@@ -65,13 +55,15 @@ export default function RegisterScreen({ navigation }: any) {
     setLoading(true);
 
     try {
+      // 🔒 SIEMPRE se registra como CLIENTE.
+      // El rol solo lo puede cambiar un ADMIN después.
       const { data, error } = await supabase.auth.signUp({
         email: cleanEmail,
         password,
         options: {
           data: {
             nombre: cleanName,
-            rol,
+            rol: "CLIENTE",
           },
         },
       });
@@ -83,7 +75,12 @@ export default function RegisterScreen({ navigation }: any) {
         data.session
           ? "Tu cuenta fue creada correctamente."
           : "Tu cuenta fue creada. Si Supabase pide confirmacion, revisa tu correo antes de iniciar sesion.",
-        [{ text: "OK", onPress: () => navigation.navigate("Login") }],
+        [{
+          text: "OK",
+          // Si ya hay sesión → va al Home (stack autenticado).
+          // Si no → va al Login (stack invitado).
+          onPress: () => navigation.navigate(data.session ? "Home" : "Login"),
+        }],
       );
     } catch (error: any) {
       Alert.alert("Error", error.message ?? "No se pudo crear la cuenta.");
@@ -177,54 +174,10 @@ export default function RegisterScreen({ navigation }: any) {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.roleTitle}>Rol del usuario</Text>
-          <View style={styles.roleList}>
-            {roleOptions.map((option) => {
-              const selected = option.value === rol;
-
-              return (
-                <TouchableOpacity
-                  key={option.value}
-                  activeOpacity={0.78}
-                  style={[styles.roleCard, selected && styles.roleCardSelected]}
-                  onPress={() => setRol(option.value)}
-                >
-                  <View
-                    style={[
-                      styles.roleIcon,
-                      selected && styles.roleIconSelected,
-                    ]}
-                  >
-                    <Ionicons
-                      name={option.icon}
-                      size={22}
-                      color={selected ? "#FFFFFF" : "#3498DB"}
-                    />
-                  </View>
-                  <View style={styles.roleCopy}>
-                    <Text
-                      style={[
-                        styles.roleLabel,
-                        selected && styles.roleLabelSelected,
-                      ]}
-                    >
-                      {option.label}
-                    </Text>
-                    <Text style={styles.roleDescription}>
-                      {option.description}
-                    </Text>
-                  </View>
-                  {selected && (
-                    <Ionicons
-                      name="checkmark-circle"
-                      size={22}
-                      color="#27AE60"
-                    />
-                  )}
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+          {/* ⚠️  El selector de rol fue ELIMINADO.
+              Todos se registran como CLIENTE automáticamente.
+              Solo un ADMIN puede cambiar roles después desde
+              GestorUsuarios. */}
 
           <TouchableOpacity
             activeOpacity={0.8}
@@ -271,46 +224,6 @@ const styles = StyleSheet.create({
   },
   icon: { marginRight: 10 },
   input: { flex: 1, paddingVertical: 15, fontSize: 16, color: "#2C3E50" },
-  roleTitle: {
-    color: "#2C3E50",
-    fontSize: 16,
-    fontWeight: "800",
-    marginBottom: 10,
-  },
-  roleList: { marginBottom: 6 },
-  roleCard: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 10,
-  },
-  roleCardSelected: {
-    borderColor: "#27AE60",
-    backgroundColor: "#F4FBF7",
-  },
-  roleIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#E1F0FA",
-    marginRight: 12,
-  },
-  roleIconSelected: { backgroundColor: "#27AE60" },
-  roleCopy: { flex: 1 },
-  roleLabel: { color: "#2C3E50", fontSize: 15, fontWeight: "800" },
-  roleLabelSelected: { color: "#1F8A70" },
-  roleDescription: {
-    color: "#7F8C8D",
-    fontSize: 12,
-    lineHeight: 17,
-    marginTop: 2,
-  },
   button: {
     backgroundColor: "#27AE60",
     padding: 16,

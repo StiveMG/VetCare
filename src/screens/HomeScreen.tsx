@@ -9,6 +9,7 @@ const adminActions: DashboardAction[] = [
     icon: "account-supervisor-outline",
     color: "#3498DB",
     backgroundColor: "#E1F0FA",
+    route: "GestorUsuarios",
   },
   {
     title: "Citas medicas",
@@ -86,6 +87,7 @@ const clienteActions: DashboardAction[] = [
     icon: "account-cog-outline",
     color: "#9B59B6",
     backgroundColor: "#F3F0FF",
+    route: "GestorUsuarios",
   },
 ];
 
@@ -111,6 +113,7 @@ const doctorActions: DashboardAction[] = [
     icon: "account-edit-outline",
     color: "#9B59B6",
     backgroundColor: "#F3F0FF",
+    route: "GestorUsuarios",
   },
 ];
 
