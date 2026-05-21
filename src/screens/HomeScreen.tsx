@@ -25,20 +25,7 @@ const adminActions: DashboardAction[] = [
     icon: "dog",
     color: "#3498DB",
     backgroundColor: "#E1F0FA",
-  },
-  {
-    title: "Historial medico",
-    description: "Consultar y administrar historiales clinicos.",
-    icon: "clipboard-pulse-outline",
-    color: "#E74C3C",
-    backgroundColor: "#FEF0F0",
-  },
-  {
-    title: "Servicios",
-    description: "Gestionar servicios, precios, estados y doctores.",
-    icon: "stethoscope",
-    color: "#9B59B6",
-    backgroundColor: "#F3F0FF",
+    route: "GestorMascotas",
   },
   {
     title: "Productos",
@@ -65,6 +52,7 @@ const clienteActions: DashboardAction[] = [
     icon: "paw",
     color: "#3498DB",
     backgroundColor: "#E1F0FA",
+    route: "GestorMascotas",
   },
   {
     title: "Productos",
@@ -73,13 +61,6 @@ const clienteActions: DashboardAction[] = [
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
     route: "ProductosCliente",
-  },
-  {
-    title: "Mi historial",
-    description: "Consultar el historial medico de tus mascotas.",
-    icon: "clipboard-text-outline",
-    color: "#E74C3C",
-    backgroundColor: "#FEF0F0",
   },
   {
     title: "Mi perfil",
@@ -99,13 +80,6 @@ const doctorActions: DashboardAction[] = [
     color: "#27AE60",
     backgroundColor: "#E8F6EF",
     route: "GestorCitas",
-  },
-  {
-    title: "Historial medico",
-    description: "Consultar historiales medicos relacionados con tus citas.",
-    icon: "clipboard-pulse-outline",
-    color: "#3498DB",
-    backgroundColor: "#E1F0FA",
   },
   {
     title: "Mi perfil",
